@@ -11,4 +11,4 @@ The current supported versions are
 
 ## Reporting a Vulnerability
 
-To report a vulnerability please contact the email address in the readme file
+To report a problem please raise an issue above.
