@@ -1,5 +1,5 @@
 # generic-otp 
-Generic Java OTP/TOTP implementation for use within applications looking to add a TOTP module.
+Generic Java OTP/TOTP implementation for use within applications looking to add a Multi Factor Authentication (MFA) in the form of Time-based One Time Passcode (OTP/TOTP)
 
 Following a look for a generic OTP implementation that would be simple to import and utilise for both Authenticator based users and instances of sending OTP codes to users in other means generic-otp was born. There are many tutorials out there for implementing your own flavour of OTP/TOTP into your application and I'm sure there are other generic implementations but it was the aim of this library to create a very simple, while still secure, approach.
 
