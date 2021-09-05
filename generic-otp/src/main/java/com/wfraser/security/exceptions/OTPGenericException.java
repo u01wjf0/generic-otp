@@ -10,7 +10,7 @@ package com.wfraser.security.exceptions;
  *
  */
 
-public class OTPGenericException extends RuntimeException {
+public class OTPGenericException extends Exception {
 	
 	/*
 	 *	List of default error messages
@@ -28,9 +28,9 @@ public class OTPGenericException extends RuntimeException {
 	 * 
 	 * @param errorMessage	the String of the error message
 	 */
-	public OTPGenericException(String errorMessage)
+	public OTPGenericException( String errorMessage )
 	{
-		super(errorMessage);
+		super( errorMessage );
 	}
 	
 	/**
@@ -39,8 +39,8 @@ public class OTPGenericException extends RuntimeException {
 	 * @param errorMessage	the String of the error message
 	 * @param err			the Throwable being wrapped
 	 */
-	public OTPGenericException(String errorMessage, Throwable err) {
-	    super(errorMessage, err);
+	public OTPGenericException( String errorMessage, Throwable err ) {
+	    super( errorMessage, err );
 	}
 	
 	

@@ -44,12 +44,12 @@ public class OTPUtils {
 	 * @return 	the String representation of a {@link Base32} SecretKey
 	 */
 	public static String generateSecretKey() {
-		synchronized(locker) {
+		synchronized( locker ) {
 			SecureRandom random = new SecureRandom();
 			byte[] bytes = new byte[20];
-			random.nextBytes(bytes);
+			random.nextBytes( bytes );
 			Base32 base32 = new Base32();
-			return base32.encodeToString(bytes);
+			return base32.encodeToString( bytes );
 		}
 	}
 
@@ -60,16 +60,17 @@ public class OTPUtils {
 	 * @param user		the {@link OTPUserCredentialProvider} representing the authenticating user
 	 * 
 	 * @return			the String containing the URL for the Google Authenticator App
+	 * @throws OTPGenericException 
 	 */
-	public static String getAuthenticatorURL(OTPUserCredentialProvider user) {
-		synchronized(locker) {
+	public static String getAuthenticatorURL(OTPUserCredentialProvider user) throws OTPGenericException {
+		synchronized( locker ) {
 			try {
-				String totpuser = URLEncoder.encode(user.getCompany() + ":" + user.getUserID(), "UTF-8").replace("+", "%20");
-				String totpKey =  URLEncoder.encode(user.getSecretKey(), "UTF-8").replace("+", "%20");
-				String totpIssuer  = URLEncoder.encode(user.getCompany(), "UTF-8").replace("+", "%20");
+				String totpuser = URLEncoder.encode( user.getCompany() + ":" + user.getUserID(), "UTF-8" ).replace( "+", "%20" );
+				String totpKey =  URLEncoder.encode( user.getSecretKey(), "UTF-8" ).replace( "+", "%20" );
+				String totpIssuer  = URLEncoder.encode( user.getCompany(), "UTF-8" ).replace( "+", "%20" );
 				return "otpauth://totp/" + totpuser + "?secret=" + totpKey + "&issuer=" + totpIssuer;
-			} catch (UnsupportedEncodingException e) {
-				throw new OTPGenericException(OTPGenericException._ERROR_GETTING_URL, e);
+			} catch ( UnsupportedEncodingException e ) {
+				throw new OTPGenericException( OTPGenericException._ERROR_GETTING_URL, e );
 			}
 		}
 	}
@@ -85,19 +86,20 @@ public class OTPUtils {
 	 * @param barCodeData		the String of the Google Authenticator URL
 	 * @param filePath			the chosen {@link OutputStream} type to feed to
 	 * @param heightAndWidth	the chosen hight and width of the QRCode
+	 * @throws OTPGenericException 
 	 */
-	public static void getAuthenticatorQRCode(String url, OutputStream outputStream, int heightAndWidth) {
-		synchronized(locker) {
+	public static void getAuthenticatorQRCode( String url, OutputStream outputStream, int heightAndWidth ) throws OTPGenericException {
+		synchronized( locker ) {
 			try {
-				BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE,
-						heightAndWidth, heightAndWidth);
+				BitMatrix matrix = new MultiFormatWriter().encode( url, BarcodeFormat.QR_CODE,
+						heightAndWidth, heightAndWidth );
 				try {
-					MatrixToImageWriter.writeToStream(matrix, "png", outputStream);
+					MatrixToImageWriter.writeToStream( matrix, "png", outputStream );
 				} finally {
 					outputStream.close();
 				}
-			} catch (IOException | WriterException pe) {
-				throw new OTPGenericException(OTPGenericException._ERROR_GETTING_QRCODE, pe);
+			} catch ( IOException | WriterException pe ) {
+				throw new OTPGenericException( OTPGenericException._ERROR_GETTING_QRCODE, pe );
 			} 
 		}
 	}
