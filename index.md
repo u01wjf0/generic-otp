@@ -1,38 +1,29 @@
-# WORK IN PROGRESS 
-## Welcome to GitHub Pages
+# 🔐 Generic OTP for Java
 
-You can use the [editor on GitHub](https://github.com/u01wjf0/generic-otp/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+**A lightweight, secure, and flexible Java library for generating and validating TOTP-based One-Time Passwords (OTP).**  
+Perfect for adding two-factor authentication (2FA) to your Java applications — whether you’re using SMS/email or apps like Google Authenticator.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+---
 
-### Markdown
+## 🚀 Quick Start
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Install dependencies:
 
-```markdown
-Syntax highlighted code block
+This project uses:
+- Apache Commons Codec
+- ZXing for QR code generation
 
-# Header 1
-## Header 2
-### Header 3
+### Generate and Validate OTP
 
-- Bulleted
-- List
+```java
+// Create a user object (valid for 2 time steps)
+OTPUserCredentialProvider user = OTPUserCredentialProvider.createBasicUserObject("user123", 2);
 
-1. Numbered
-2. List
+// Create an OTP instance
+OTPImplementation otp = OTPImplementation.createInstance(user);
 
-**Bold** and _Italic_ and `Code` text
+// Get the 6-digit OTP
+String code = otp.getOTP();
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/u01wjf0/generic-otp/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+// Later, validate input from user
+boolean isValid = otp.validate(userInputCode);
