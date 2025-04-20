@@ -9,7 +9,7 @@ Perfect for adding two-factor authentication (2FA) to your Java applications —
 
 Install dependencies:
 
-This project uses:
+This project uses: 
 - Apache Commons Codec
 - ZXing for QR code generation
 
