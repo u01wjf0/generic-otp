@@ -34,7 +34,7 @@ public final class OTPImplementation {
 
 	private final String _OTP_METHOD_ALGO = HmacAlgorithms.HMAC_SHA_1.getName();
 	private final OTPUserCredentialProvider authenticatingUser;
-	private final Mac mac;
+	private final byte[] secretKeyBytes;
 
 	/**
 	 * Creates an instance of {@link OTPImplementation} using a given {@link OTPUserCredentialProvider}
@@ -96,7 +96,7 @@ public final class OTPImplementation {
 	 */
 	private OTPImplementation() throws NoSuchAlgorithmException, InvalidKeyException {
 		this.authenticatingUser = null;
-		this.mac = null;
+		this.secretKeyBytes = null;
 	}
 
 	/**
@@ -112,10 +112,9 @@ public final class OTPImplementation {
 	 */
 	private OTPImplementation( OTPUserCredentialProvider authUser ) throws NoSuchAlgorithmException, InvalidKeyException, OTPGenericException {
 		this.authenticatingUser = authUser;
-		mac = Mac.getInstance( _OTP_METHOD_ALGO );
 		if( this.authenticatingUser != null && this.authenticatingUser.getSecretKey() != null ) 
 		{
-			mac.init(new SecretKeySpec(this.authenticatingUser.getSecretByteArray(), "RAW"));
+			this.secretKeyBytes = this.authenticatingUser.getSecretByteArray();
 		} else {
 			throw new OTPGenericException(OTPGenericException._USER_AND_KEY_BLANK);
 		}
@@ -156,7 +155,13 @@ public final class OTPImplementation {
 	 */
 	private byte[] doHMACSHA1(final byte[] text)
 	{
-		return mac.doFinal( text );
+		try {
+			Mac mac = Mac.getInstance( _OTP_METHOD_ALGO );
+			mac.init(new SecretKeySpec(secretKeyBytes, "RAW"));
+			return mac.doFinal( text );
+		} catch ( InvalidKeyException | NoSuchAlgorithmException e ) {
+			throw new IllegalStateException("Failed to compute HMAC SHA1", e);
+		}
 	}
 
 	/**

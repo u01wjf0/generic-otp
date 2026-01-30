@@ -44,6 +44,8 @@ public class OTPUserCredentialProvider {
 	private OTPUserCredentialProvider( final String secretKey, final String userID, final String company, final int steps ) throws OTPGenericException {
 		if( secretKey == null || secretKey.equals( "" ) || userID == null || userID.equals( "" ) )
 			throw new OTPGenericException( OTPGenericException._USER_AND_KEY_BLANK );
+		if (steps <= 0)
+			throw new OTPGenericException( OTPGenericException._ALLOWED_STEPS_INVALID );
 		this.secretKey = secretKey;
 		this.userID = userID;
 		allowedSteps = steps;
