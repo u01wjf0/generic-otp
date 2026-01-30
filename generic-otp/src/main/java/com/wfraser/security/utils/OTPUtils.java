@@ -65,6 +65,9 @@ public class OTPUtils {
 	public static String getAuthenticatorURL(OTPUserCredentialProvider user) throws OTPGenericException {
 		synchronized( locker ) {
 			try {
+				if (user == null || user.getCompany() == null || user.getUserID() == null || user.getSecretKey() == null) {
+					throw new OTPGenericException( OTPGenericException._USER_AND_KEY_BLANK );
+				}
 				String totpuser = URLEncoder.encode( user.getCompany() + ":" + user.getUserID(), "UTF-8" ).replace( "+", "%20" );
 				String totpKey =  URLEncoder.encode( user.getSecretKey(), "UTF-8" ).replace( "+", "%20" );
 				String totpIssuer  = URLEncoder.encode( user.getCompany(), "UTF-8" ).replace( "+", "%20" );

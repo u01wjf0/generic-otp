@@ -17,6 +17,7 @@ public class OTPGenericException extends Exception {
 	 */
 	public static final String _USER_AND_KEY_BLANK = "FATAL: OTPUserCredentailProvider not properly populated.";
 	public static final String _KEY_BLANK = "FATAL: OTPUserCredentailProvider does not contain Secret Key.";
+	public static final String _ALLOWED_STEPS_INVALID = "FATAL: Allowed steps must be greater than zero.";
 	public static final String _ERROR_GETTING_URL = "FATAL: Error in getting URL for Google Authenticator";
 	public static String _ERROR_GETTING_QRCODE = "FATAL: Error in getting QRCode for Google Authenticator";
 	public static String _ERROR_CREATING_OTP_INSTANCE = "FATAL: Error creating instacnce of OTPImplementation";
