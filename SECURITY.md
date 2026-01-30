@@ -8,7 +8,8 @@ The current supported versions are
 | ------- | ------------------ |
 | 0.1.x   | ❌ |
 | 0.2.x   | ❌ |
-| 1.2.x   | :white_check_mark: |
+| 1.2.x   | ❌ |
+| 1.3.x   | ✅ |
 
 ## Reporting a Vulnerability
 
