@@ -1,4 +1,4 @@
-package test.entities;
+package com.wfraser.security.test.entities;
 
 import com.wfraser.security.exceptions.OTPGenericException;
 import com.wfraser.security.otp.OTPUserCredentialProvider;
