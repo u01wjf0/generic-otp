@@ -9,7 +9,8 @@ The current supported versions are
 | 0.1.x   | ❌ |
 | 0.2.x   | ❌ |
 | 1.2.x   | ❌ |
-| 1.3.x   | ✅ |
+| 1.3.x   | ❌ |
+| 2.0.0   | ✅ |
 
 ## Reporting a Vulnerability
 
